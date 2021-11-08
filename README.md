@@ -22,3 +22,6 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+<!-- select customers.name, products.product_name, products.product_type, orders.order_id  from orderdetails inner join orders on orders.order_id = orderdetails.order_id  right  join products on products.id = orderdetails.product_id inner join customers on customers.customer_id = orders.customer_id  where customers.name ='Robert'; -->
+
+<!-- #finding association of orderdetaisl with three other tables -->

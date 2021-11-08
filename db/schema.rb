@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_11_08_071939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,13 +32,37 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "customer_id"
   end
 
-  create_table "product", id: :serial, force: :cascade do |t|
+  create_table "products", id: :integer, default: -> { "nextval('product_id_seq'::regclass)" }, force: :cascade do |t|
     t.text "product_name"
     t.text "product_type"
     t.decimal "selling_price"
+    t.integer "vendor_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "vendors", primary_key: "vendor_id", id: :serial, force: :cascade do |t|
+    t.string "name", limit: 60
+    t.string "username", limit: 60
+    t.string "password", limit: 100
+    t.integer "ratings"
+    t.text "city"
+    t.text "state"
+    t.integer "zipcode"
   end
 
   add_foreign_key "orderdetails", "orders", primary_key: "order_id", name: "orderdetails_order_id_fkey"
-  add_foreign_key "orderdetails", "product", name: "orderdetails_product_id_fkey"
+  add_foreign_key "orderdetails", "products", name: "orderdetails_product_id_fkey"
   add_foreign_key "orders", "customers", primary_key: "customer_id", name: "orders_customer_id_fkey"
+  add_foreign_key "products", "vendors", primary_key: "vendor_id", name: "products_vendor_id_fkey"
 end

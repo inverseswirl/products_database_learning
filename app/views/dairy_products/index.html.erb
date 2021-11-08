@@ -1,0 +1,8 @@
+<h1>Home</h1>
+<p>List of dairy products in the marketplace</p>
+<ul>
+  <% @products.each do |product| %>
+   <li> <%= product.product_name   %></li>
+    <% end %>
+</ul>
+
