@@ -3,7 +3,6 @@ class DairyProductsController < ApplicationController
   def index
     @products = Product.all
     puts "hello"
-    p @users = User.all
-    p params[:user][:email]
+    # p params[:user][:name]
   end
 end
